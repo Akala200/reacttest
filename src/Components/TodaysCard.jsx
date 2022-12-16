@@ -52,25 +52,26 @@ const TodaysCard = (props) => {
         reRender();
 
     },[])
+
     
     const API_key = '01f9b366368c6cdf766b24505342f188'
     const fetchAPI = async () => {
         setIsLoading(true);
-        const url1 = `http://api.weatherstack.com/current?access_key=${API_key}&query=Stockholm`;
+        
+        const url1 = `http://api.positionstack.com/v1/reverse?access_key=4a60d82e3d90ef04747057fd0ea9a4ce&query=59.33727435946327,18.06787715022617`
         const response = await fetch(url1);
         const JSON = await response.json();
         setIsLoading(false);
-        console.log(JSON);
-        setContry(JSON.location.country);
-        setName(JSON.location.name);
-        setREgion(JSON.location.region);
-        setLat(JSON.location.lat);
-        setLon(JSON.location.lon);
+        setName(JSON.data[0].county);
+        setContry(JSON.data[0].country);
+        setREgion(JSON.data[0].region);
+        setLat(JSON.data[0].latitude);
+        setLon(JSON.data[0].longitude);
         //giveData(contry,name,region,lat,lon)
-        const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&&exclude=hourly,minutely&appid=${API_key}&units=metric`
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=59.333732&lon=18.041844&appid=${API_key}`
         const resposne = await fetch(url);
         const Json = await resposne.json();
-        // console.log(Json);
+        console.log(Json);
         setTemp(Json.main.temp);
         setTempMin(Json.main.temp_min);
         setTempMax(Json.main.temp_max);
@@ -80,6 +81,7 @@ const TodaysCard = (props) => {
         setImg(Json.weather[0].icon);
     }
 
+
     const reRender=()=>{
         setRern(rern+1)
         console.log(rern);
@@ -88,7 +90,7 @@ const TodaysCard = (props) => {
 
 
 
-    return (<div className="mt-5">
+    return (<div className="mt-5 main2">
         <h1 style={{ textAlign: "center", fontFamily: "cursive" }}>Stockholm Today's Weather</h1>
         <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:'2rem'}}>
         {/* <TextField id="standard-basic" label="Enter City Name" value={cityName} onChange={(event)=>{setcityName(event.target.value)}} />
@@ -105,14 +107,14 @@ const TodaysCard = (props) => {
                     <div className="col-lg-4 mt-3">
                         <div className="card p-3 holder">
                             {isLoading === true && <p>Loading...</p>}
-                        <h1><LocationOnIcon />{name}</h1>
+                        <h1 className="mt-2"><LocationOnIcon />{name}</h1>
                         <p>{region} ,{contry}</p>
                         <Time />
                         </div>
                     </div>
                     <div className="col-lg-4 mt-3">
                        <div className="card p-3 holder">
-                       <p>
+                       <p className="mt-4">
                             <h3><WbSunnyOutlinedIcon style={{ paddingRight: "1rem" }} />Temp : {temp} C</h3>
                             <h3><WbSunnyOutlinedIcon style={{ paddingRight: "1rem" }} />Maximum Temp : {tempMax} C</h3>
                             <h3><WbSunnyOutlinedIcon style={{ paddingRight: "1rem" }} />Minimum Temp : {tempMin} C</h3>

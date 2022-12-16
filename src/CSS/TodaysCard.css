@@ -9,7 +9,7 @@
 }
 
 .holder {
-    height: 200px !important;
+    height: 240px !important;
 }
 
 .othercards{
@@ -40,4 +40,13 @@
 
 .loc_data1 {
     margin-top: 3rem;
+}
+
+
+@media (min-width:221px) and (max-width:668px) {
+.main2 {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
 }
