@@ -53,9 +53,10 @@ const TodaysCard = (props) => {
 
     },[])
     
+    const API_key = '01f9b366368c6cdf766b24505342f188'
     const fetchAPI = async () => {
         setIsLoading(true);
-        const url1 = `http://api.weatherstack.com/current?access_key=ad933f25e5dd4891e030b77ff5b0424d&query=Stockholm`;
+        const url1 = `http://api.weatherstack.com/current?access_key=${API_key}&query=Stockholm`;
         const response = await fetch(url1);
         const JSON = await response.json();
         setIsLoading(false);
@@ -66,7 +67,7 @@ const TodaysCard = (props) => {
         setLat(JSON.location.lat);
         setLon(JSON.location.lon);
         //giveData(contry,name,region,lat,lon)
-        const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&&exclude=hourly,minutely&appid=9d46faea8fc499b6e66aefd0a5663786&units=metric`
+        const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&&exclude=hourly,minutely&appid=${API_key}&units=metric`
         const resposne = await fetch(url);
         const Json = await resposne.json();
         // console.log(Json);
